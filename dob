@@ -1,0 +1,15 @@
+package service;
+
+import org.springframework.stereotype.Component;
+
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+@Component
+public class DobPropertyEditor extends PropertyEditorSupport {
+    public void setAsText(String text) throws IllegalArgumentException {
+        DateTimeFormatter date = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate formattedDate = LocalDate.parse(text, date);
+        setValue(formattedDate);
+    }
+}
