@@ -1,0 +1,27 @@
+package connectionFactory;
+
+import org.springframework.stereotype.Component;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+@Component
+public class ConnectionFactory {
+    private ConnectionFactory(){
+
+    }
+    public static Connection getConnection(){
+        Connection connection = null;
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@10.1.50.198:1535:nsbt19c", "training", "training");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Class Not Found");
+        } catch (SQLException sqlException) {
+            System.out.println("Sql error");
+            sqlException.printStackTrace();
+        }
+        return connection;
+    }
+}
