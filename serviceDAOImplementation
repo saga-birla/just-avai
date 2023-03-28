@@ -1,0 +1,77 @@
+package services;
+
+import dao.CustomerDao;
+import dao.CustomerDaoImplement;
+import day1.Customer;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.List;
+@Component
+public class ServiceDaoImplement implements ServiceDao {
+    CustomerDaoImplement customerDaoImplement = new CustomerDaoImplement();
+
+    @Override
+    public boolean registerCustomer(Customer customer) {
+        int age = LocalDate.now().getYear() - customer.getDob().getYear();
+        System.out.println(age);
+        if(age>21){
+            return customerDaoImplement.registerCustomer(customer);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateCustomer(Customer customer) {
+        return customerDaoImplement.updateCustomer(customer);
+    }
+
+    @Override
+    public boolean deleteCustomer(int id)
+    {
+        return customerDaoImplement.deleteCustomer(id);
+    }
+
+    @Override
+    public Customer getCustomer(int id) throws CustomerNotFoundException {
+        return customerDaoImplement.getCustomer(id);
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+        return customerDaoImplement.getAllCustomers();
+    }
+
+    @Override
+    public List<Customer> getCustomersByName(String name) {
+        return customerDaoImplement.getCustomersByName(name);
+    }
+
+//    @Override
+//    public boolean updateCustomer(Customer customer) {
+//      //  CustomerDaoImplement.updateCustomer(customer);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean deleteCustomer(int id) {
+//        return true;
+//                //CustomerDaoImplement.deleteCustomer(id);;
+//    }
+//
+//    @Override
+//    public Customer getCustomer(int id) {
+//        return true;
+//               // CustomerDaoImplement.getCustomer(id);
+//    }
+//
+//    @Override
+//    public List<Customer> getAllCustomers() {
+//        return CustomerDaoImplement.getAllCustomers();
+//    }
+//
+//    @Override
+//    public List<Customer> getCustomersByName(String name) {
+//        return CustomerDaoImplement.getCustomersByName(name);
+//    }
+}
