@@ -1,0 +1,16 @@
+package services;
+
+import day1.Customer;
+
+import java.util.List;
+
+public interface ServiceDao {
+    boolean registerCustomer(Customer customer);
+
+   public boolean updateCustomer(Customer customer);
+    boolean deleteCustomer(int id);
+    Customer getCustomer(int id) throws CustomerNotFoundException;
+    List<Customer> getAllCustomers();
+    List<Customer> getCustomersByName(String name);
+
+}
