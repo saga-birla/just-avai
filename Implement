@@ -1,0 +1,169 @@
+package dao;
+
+import connectionFactory.ConnectionFactory;
+import day1.Customer;
+import day4.main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
+import services.CustomerNotFoundException;
+
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+@Component
+public class CustomerDaoImplement implements CustomerDao {
+    private final static Logger logger = LogManager.getLogger(CustomerDaoImplement.class);
+//    Customer customer;
+//    List<Customer> customers;
+//    PreparedStatement preparedStatement = null;
+//    PreparedStatement preparedStatement1 = null;
+//    PreparedStatement preparedStatement2 = null;
+//    PreparedStatement preparedStatement3 = null;
+//    PreparedStatement preparedStatement4 = null;
+    Connection connection = ConnectionFactory.getConnection();
+
+    @Override
+    public boolean registerCustomer(Customer customer) {
+        try {
+            String queryInsert="insert into Customer_Master_16917_spring values(?,?,?,?,?,?,?)";
+            PreparedStatement preparedStatement=connection.prepareStatement(queryInsert);
+            preparedStatement.setInt(1, customer.getCustomerId());
+            preparedStatement.setString(2, customer.getCustomerName());
+          //  preparedStatement.setDate(3, Date.valueOf(customer.getDob().toString()));
+            preparedStatement.setDate(3, Date.valueOf(customer.getDob()));
+            preparedStatement.setDouble(4, customer.getMonthlyIncome());
+            preparedStatement.setString(5, customer.getProfession());
+            preparedStatement.setString(6, customer.getDesignation());
+            preparedStatement.setString(7, customer.getCompanyName());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException err) {
+            logger.info(" this customer already exists in records ");
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateCustomer(Customer customer) {
+        try{
+            String update="update Customer_Master_16917_spring set Customer_Name=?, dateOfBirth=?, Monthly_Income=?,profession=?,designation=?,company_Name=? where Customer_Id=?";
+            PreparedStatement preparedStatement= connection.prepareStatement(update);
+            preparedStatement.setString(1, customer.getCustomerName());
+            preparedStatement.setDate(2,Date.valueOf(customer.getDob()));
+            preparedStatement.setDouble(3,customer.getMonthlyIncome());
+            preparedStatement.setString(4, customer.getProfession());
+            preparedStatement.setString(5, customer.getDesignation());
+            preparedStatement.setString(6, customer.getCompanyName());
+            preparedStatement.setInt(7, customer.getCustomerId());
+            preparedStatement.executeUpdate();
+        }catch(Exception ex)
+        {
+            ex.printStackTrace();
+           // logger.info("not updated");
+            System.out.println("not updated");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteCustomer(int customerId) {
+        try{
+            String delete="delete from Customer_Master_16917_spring where Customer_Id=?";
+            PreparedStatement preparedStatement= connection.prepareStatement(delete);
+            preparedStatement.setInt(1,customerId);
+            preparedStatement.executeUpdate();
+
+        }catch(Exception ex)
+        {
+            ex.printStackTrace();
+            logger.info("not deleted");
+        }
+        return true;
+    }
+
+    @Override
+    public Customer getCustomer(int customerId)  {
+        Customer customer = null;
+        try{
+            String get="select * from Customer_Master_16917_spring where Customer_Id=?";
+            PreparedStatement preparedStatement= connection.prepareStatement(get);
+            preparedStatement.setInt(1, customerId);
+            ResultSet resultSet=preparedStatement.executeQuery();
+            while(resultSet.next())
+            {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                LocalDate dob=resultSet.getDate(3).toLocalDate();
+                double income=resultSet.getDouble(4);
+                String profession=resultSet.getString(5);
+                String designation=resultSet.getString(6);
+                String companyName= resultSet.getString(7);
+                customer=new Customer(id,name,dob,income,profession,designation,companyName);
+            }
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        if( customer == null ) throw new CustomerNotFoundException();
+
+        return customer;
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+        List<Customer> list=new ArrayList<>();
+        try {
+            String get="select * from  Customer_Master_16917_spring";
+            PreparedStatement preparedStatement= connection.prepareStatement(get);
+            ResultSet resultSet=preparedStatement.executeQuery();
+            while(resultSet.next())
+            {
+                int id=resultSet.getInt(1);
+                String name=resultSet.getString(2);
+                LocalDate dob=resultSet.getDate(3).toLocalDate();
+                double monthlySalary=resultSet.getDouble(4);
+                String profession=resultSet.getString(5);
+                String designation=resultSet.getString(6);
+                String companyName=resultSet.getString(7);
+                Customer customer=new Customer(id,name,dob,monthlySalary,profession,designation,companyName);
+                list.add(customer);
+            }
+        } catch (SQLException ex) {
+            logger.info("Exception occurred");
+        }
+        return list;
+    }
+
+    @Override
+    public List<Customer> getCustomersByName(String customerName) {
+        List<Customer> list=new ArrayList<>();
+        try {
+                String get="select * from Customer_Master_16917_spring where Customer_Name=? ";
+            PreparedStatement preparedStatement= connection.prepareStatement(get);
+            preparedStatement.setString(1,customerName);
+            ResultSet resultSet=preparedStatement.executeQuery();
+            while (resultSet.next())
+            {
+                int id=resultSet.getInt(1);
+                String name=resultSet.getString(2);
+                LocalDate dob=resultSet.getDate(3).toLocalDate();
+                double monthlyIncome=resultSet.getDouble(4);
+                String profession=resultSet.getString(5);
+                String designation=resultSet.getString(6);
+                String companyName=resultSet.getString(7);
+                Customer customer=new Customer(id,name,dob,monthlyIncome,profession,designation,companyName);
+                list.add(customer);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+}
