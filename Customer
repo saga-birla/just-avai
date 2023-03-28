@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>contact me</title>
+  </head>
+  <body>
+    <h3>my fiction address</h3>
+    <h3>+91 3984729828</h3>
+    <h3>abcd@gmail.com</h3>
+    <hr>
+    <form action="mailto:sagarbirlaji@gmail.com" method="post" enctype="text/plain">
+      <label>your name:</label>
+      <input type="text" name="your Name" value=""> <br>
+      <label>your email address:</label>
+      <input type="email" name="your email" value=""> <br>
+      <label>your contact no.</label>
+      <input type="number" name="your contact no." value="+91"> <br>
+      <label>your message:</label> <br>
+      <textarea name="your message" rows="10" cols="30"></textarea> <br>
+      <input type="submit" name="submit">
+    </form>
+  </body>
+</html>
