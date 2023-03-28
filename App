@@ -1,0 +1,141 @@
+package appConfiguration;
+
+import day1.Customer;
+import day1.LoanApplication;
+import day2.Address;
+import day2.LoanAgreement;
+import day3.User;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Configuration
+@ComponentScan("dao,day1,services,connectionFactory,day4,aop")
+
+public class AppConfiguration {
+
+    @Bean
+    //@Scope("prototype")
+    public Customer customer23() {
+        Customer customer = new Customer();
+        customer.setCustomerId(230);
+        customer.setCustomerName("sakshi");
+        customer.setMonthlyIncome(70002);
+        customer.setProfession("business");
+        customer.setDesignation("tester");
+        customer.setCompanyName("nucleus");
+        customer.setDob(LocalDate.of(1996,10,20));
+        return customer;
+    }
+
+    @Bean
+    //@Scope("prototype")
+    public Customer customer24() {
+        Customer customer = new Customer();
+        customer.setCustomerId(231);
+        customer.setCustomerName("sashi");
+        customer.setMonthlyIncome(80002);
+        customer.setProfession("business");
+        customer.setDesignation("tester");
+        customer.setCompanyName("tcs");
+        customer.setDob(LocalDate.of(1997,10,20));
+        return customer;
+    }
+
+    @Bean
+    //@Scope("prototype")
+    public Customer customer25() {
+        Customer customer = new Customer();
+        customer.setCustomerId(232);
+        customer.setCustomerName("raj");
+        customer.setMonthlyIncome(90002);
+        customer.setProfession("business");
+        customer.setDesignation("tester");
+        customer.setCompanyName("hcl");
+        customer.setDob(LocalDate.of(1998,10,20));
+        return customer;
+    }
+
+    @Bean
+    //@Scope("prototype")
+    public Customer customer26() {
+        Customer customer = new Customer();
+        customer.setCustomerId(232);
+        customer.setCustomerName("rohan");
+        customer.setMonthlyIncome(90002);
+        customer.setProfession("business");
+        customer.setDesignation("tester");
+        customer.setCompanyName("hcl");
+        customer.setDob(LocalDate.of(2023,10,20));
+        return customer;
+    }
+
+
+//
+//    @Bean
+//    public Address address()
+//    {
+//        Address address=new Address();
+//        address.setAddressId(100);
+//        address.setAddressLine1("gyedg");
+//        address.setAddressLine2("gwy");
+//        address.setCity("gwe");
+//        address.setState("wgey");
+//        address.setZip(218678);
+//        return address;
+//    }
+//    List<String> phoneNumbers=new ArrayList<>(){
+//            phoneNumbers.add(8979);
+//
+//    };
+
+//    @Bean
+//    public Customer customer1(){
+//        Customer customer=new Customer();
+//        customer.setCustomerId(102);
+//        customer.setCustomerName("raj");
+//        customer.setMonthlyIncome(70000);
+//        customer.setProfession("service");
+//        customer.setDesignation("Developer");
+//        customer.setCompanyName("tcs");
+//        return customer;
+//    }
+//    @Bean
+//    public Customer customer()
+//    {
+//        Customer customer=new Customer(101,"tisha",10000,"engg","hr","tcs");
+//        return customer;
+//    }
+//
+//    @Bean
+//    public Customer customer1()
+//    {
+//        Customer customer1=new Customer(102,"tushar",100000,"engg","marketing","nucleus");
+//        return customer1;
+//    }
+//@Bean
+//LoanAgreement loanAgreement1(){
+//    LoanAgreement loanAgreement = new LoanAgreement();
+//    loanAgreement.setLoanAgreementId(2);
+//    loanAgreement.setLoanAmount(45673);
+//    return loanAgreement;
+//}
+//@Bean
+//LoanApplication loanApplication(){
+//    LoanApplication loanApplication = new LoanApplication();
+//    loanApplication.setApplicantName("gigi");
+//    loanApplication.setApplicant_email_id("hello@hotmail.com");
+//    loanApplication.setLoan_Tenure(1.0);
+//    loanApplication.setLoan_Type("home");
+//    loanApplication.setLoanStatus(LoanApplication.LoanStatus.APPROVED);
+//    loanApplication.setReasonForLoan("in need");
+//    loanApplication.setContact_Number(23456778.0);
+//    return loanApplication;
+//}
+
+}
