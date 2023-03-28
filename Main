@@ -1,0 +1,22 @@
+package appConfiguration;
+import day1.Customer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import services.ServiceDao;
+
+
+public class Main {
+    public static void main(String[] args) {
+       ApplicationContext applicationContext=new AnnotationConfigApplicationContext(AppConfiguration.class);
+       // CustomerDao customerDao = (CustomerDao) applicationContext.getBean(CustomerDao.class);
+        ServiceDao serviceDao=(ServiceDao) applicationContext.getBean(ServiceDao.class);
+        Customer customer1=(Customer) applicationContext.getBean("customer23");
+        Customer customer2=(Customer) applicationContext.getBean("customer24");
+        Customer customer3=(Customer) applicationContext.getBean("customer25");
+        Customer customer4=(Customer) applicationContext.getBean("customer26");
+        //  System.out.println(customerDao.registerCustomer(customer1));
+       // System.out.println(serviceDao.registerCustomer(customer2));
+        //System.out.println(serviceDao.registerCustomer(customer4));
+        serviceDao.registerCustomer(customer3);
+    }
+}
